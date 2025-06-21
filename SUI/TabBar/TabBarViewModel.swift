@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 final class TabBarViewModel: ViewModel, ObservableObject {
     private var cancellables = Set<AnyCancellable>()
