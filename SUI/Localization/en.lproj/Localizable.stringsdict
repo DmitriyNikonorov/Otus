@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ elements</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@elements@</string>
+		<key>elements</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d elements</string>
+			<key>one</key>
+			<string>%d element</string>
+			<key>two</key>
+			<string>%d elements</string>
+			<key>few</key>
+			<string>%d elements</string>
+			<key>many</key>
+			<string>%d elements</string>
+			<key>other</key>
+			<string>%d elements</string>
+		</dict>
+	</dict>
+	<key>%@ parrots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@parrots@</string>
+		<key>parrots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d parrots</string>
+			<key>one</key>
+			<string>%d parrot</string>
+			<key>two</key>
+			<string>%d parrots</string>
+			<key>few</key>
+			<string>%d parrots</string>
+			<key>many</key>
+			<string>%d parrots</string>
+			<key>other</key>
+			<string>%d parrots</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

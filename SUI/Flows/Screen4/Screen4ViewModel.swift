@@ -59,3 +59,36 @@ private extension Screen4ViewModel {
             .store(in: &cancellables)
     }
 }
+
+extension Screen4ViewModel {
+    func formattedSpeed(_ speedKmH: Double) -> String {
+        let value = NSMeasurement(doubleValue: speedKmH, unit: UnitSpeed.kilometersPerHour)
+        let formatter = MeasurementFormatter()
+        formatter.numberFormatter.maximumFractionDigits = 2
+        return formatter.string(from: value as Measurement<Unit>)
+    }
+
+    func formattedDistance(_ meters: Int) -> String {
+        let value = NSMeasurement(doubleValue: Double(meters), unit: UnitLength.meters)
+        let formatter = MeasurementFormatter()
+
+        formatter.unitStyle = .long
+        formatter.numberFormatter.maximumFractionDigits = 0
+        formatter.unitOptions = [.providedUnit] // Сохранть установленные единицы измерения
+        // .naturalScale - переводить еденицы(1000 м будет 1 км)
+        return formatter.string(from: value as Measurement<Unit>)
+    }
+
+    func formattedDistanceInParrots(_ meters: Int) -> String {
+        let parrotsCount = Int(round(Double(meters) / 0.3))
+        return String(format: NSLocalizedString("%@ parrots", comment: ""), parrotsCount)
+    }
+
+    func formattedTime(_ seconds: Int) -> String {
+        let value = NSMeasurement(doubleValue: Double(seconds), unit: UnitDuration.seconds)
+        let formatter = MeasurementFormatter()
+        formatter.unitStyle = .long
+        formatter.unitOptions = [.naturalScale]
+        return formatter.string(from: value as Measurement<Unit>)
+    }
+}

@@ -13,13 +13,13 @@ struct Screen3View: View {
     var body: some View {
         ZStack {
             VStack {
-                Button("Open Details Modal") {
+                Button(Localization.openDetailsModal) {
                     viewModel.action.send(.openDetails)
                 }
             }
-            .navigationTitle("Third Screen")
+            .navigationTitle(Localization.thirdScreen)
             .sheet(isPresented: $viewModel.isShowingModal) {
-                DetailsView(viewModel: DefaultAssembler.shared.resolve(text: "Modal Screen"))
+                DetailsView(viewModel: DefaultAssembler.shared.resolve(text: Localization.modalScreen))
             }
         }
     }

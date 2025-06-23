@@ -1,0 +1,23 @@
+/*
+  Localizable.strings
+  SUI
+
+  Created by Дмитрий Никоноров on 21.06.2025.
+
+*/
+
+"Open Second Screen" = "Открыть второй экран";
+"Hello, %@" = "Привет, %@";
+"Second Screen" = "Второй экран";
+"Open Details Modal" = "Открыть экран детализации модельно";
+"Third Screen" = "Третий экран";
+"Modal Screen" = "Модельный экран";
+"Fourth screen" = "Четвертый экран";
+"Open detail" = "Открыть экран детализации";
+"parrots" = "попугаев";
+"Show in Meters" = "Показать в метрах";
+"Show in Parrots" = "Показать в попугаях";
+"open" = "открыть";
+"Item %@" = "Элемент %@";
+"screen %@" = "экран %@";
+"Details View" = "Экран детализации";

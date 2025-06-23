@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		391B801E44982FE152985F45 /* Pods_SUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86293B4A2CEFC8E6D1CD78B2 /* Pods_SUI.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		1840C6AA456A4C0562A247B0 /* Pods-SUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SUI.release.xcconfig"; path = "Target Support Files/Pods-SUI/Pods-SUI.release.xcconfig"; sourceTree = "<group>"; };
 		5AE1EF612DEE1F050063A21C /* SUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		86293B4A2CEFC8E6D1CD78B2 /* Pods_SUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F320921EA8D030CA07C65BFF /* Pods-SUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SUI.debug.xcconfig"; path = "Target Support Files/Pods-SUI/Pods-SUI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,17 +30,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				391B801E44982FE152985F45 /* Pods_SUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5001713DD335D65A963F46B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86293B4A2CEFC8E6D1CD78B2 /* Pods_SUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5AE1EF582DEE1F050063A21C = {
 			isa = PBXGroup;
 			children = (
 				5AE1EF632DEE1F050063A21C /* SUI */,
 				5AE1EF622DEE1F050063A21C /* Products */,
+				5ED20662B6C3BF8B96AA58CF /* Pods */,
+				5001713DD335D65A963F46B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -45,6 +63,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5ED20662B6C3BF8B96AA58CF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F320921EA8D030CA07C65BFF /* Pods-SUI.debug.xcconfig */,
+				1840C6AA456A4C0562A247B0 /* Pods-SUI.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -52,6 +79,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5AE1EF6F2DEE1F080063A21C /* Build configuration list for PBXNativeTarget "SUI" */;
 			buildPhases = (
+				FC92A6ED09D6FF3D65B69A5E /* [CP] Check Pods Manifest.lock */,
 				5AE1EF5D2DEE1F050063A21C /* Sources */,
 				5AE1EF5E2DEE1F050063A21C /* Frameworks */,
 				5AE1EF5F2DEE1F050063A21C /* Resources */,
@@ -64,8 +92,6 @@
 				5AE1EF632DEE1F050063A21C /* SUI */,
 			);
 			name = SUI;
-			packageProductDependencies = (
-			);
 			productName = SUI;
 			productReference = 5AE1EF612DEE1F050063A21C /* SUI.app */;
 			productType = "com.apple.product-type.application";
@@ -91,6 +117,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 5AE1EF582DEE1F050063A21C;
 			minimizedProjectReferenceProxies = 1;
@@ -113,6 +140,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FC92A6ED09D6FF3D65B69A5E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5AE1EF5D2DEE1F050063A21C /* Sources */ = {
@@ -246,6 +298,7 @@
 		};
 		5AE1EF702DEE1F080063A21C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F320921EA8D030CA07C65BFF /* Pods-SUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -276,6 +329,7 @@
 		};
 		5AE1EF712DEE1F080063A21C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1840C6AA456A4C0562A247B0 /* Pods-SUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

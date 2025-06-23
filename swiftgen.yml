@@ -1,0 +1,11 @@
+strings:
+  - inputs: SUI/Localization/ru.lproj
+    filter: (Localizable\.strings)(?:dict)*$
+    outputs:
+      - templatePath: Templates/Swiftgen/template.stencil
+        output: SUI/Localization/Localization.swift
+        params:
+          publicAccess: 0
+          lookupFunction: 1
+
+
