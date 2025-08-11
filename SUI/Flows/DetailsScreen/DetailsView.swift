@@ -12,6 +12,6 @@ struct DetailsView: View {
 
     var body: some View {
         Text(viewModel.text)
-            .navigationTitle("Details View")
+            .navigationTitle(Localization.detailsView)
     }
 }

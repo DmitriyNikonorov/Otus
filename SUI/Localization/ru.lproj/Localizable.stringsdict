@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ elements</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@elements@</string>
+		<key>elements</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d элемент</string>
+			<key>two</key>
+			<string>%d элемента</string>
+			<key>few</key>
+			<string>%d элемента</string>
+			<key>many</key>
+			<string>%d элементов</string>
+			<key>other</key>
+			<string>%d элементов</string>
+		</dict>
+	</dict>
+	<key>%@ parrots</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@parrots@</string>
+		<key>parrots</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d попугай</string>
+			<key>few</key>
+			<string>%d попугая</string>
+			<key>many</key>
+			<string>%d попугаев</string>
+			<key>other</key>
+			<string>%d попугаев</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

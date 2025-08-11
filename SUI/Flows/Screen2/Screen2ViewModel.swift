@@ -38,7 +38,7 @@ final class Screen2ViewModel: ViewModel, ObservableObject {
         }
     }
     @Published var isLinkActive = false
-    @Published var items: [String] = (0...25).map { "Item \($0)" }
+    @Published var items: [String] = (1...25).map { Localization.item($0) }
 
     var action = PassthroughSubject<Action, Never>()
 

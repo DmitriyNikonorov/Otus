@@ -11,6 +11,7 @@ import Combine
 @main
 struct SUIApp: App {
 
+//    private let tabBarViewModel = TabBarViewModel()
     private let tabBarViewModel: TabBarViewModel = DefaultAssembler.shared.resolve()
 
     @StateObject private var tabBarState = TabBarState()

@@ -14,8 +14,8 @@ struct Screen1View: View {
     var body: some View {
         ZStack {
             VStack {
-                Text("Hello, Screen1View!")
-                Button("Open Second Screen") {
+                Text(Localization.hello("Screen1View!"))
+                Button(Localization.openSecondScreen) {
                     tabBarState.selectedTab = .screen2
                     viewModel.action.send(.openDetail)
                 }
