@@ -16,6 +16,8 @@ final class Screen1ViewModel: ViewModel, ObservableObject {
     private let chefActor = ChefActor()
     private let deliveryActor = DeliveryActor()
     private var processingTasks: [UUID: Task<Void, Never>] = [:]
+
+    private var cancelledTasks = Set<UUID>()
     private var cancellables = Set<AnyCancellable>()
 
     enum Action {
@@ -46,6 +48,11 @@ final class Screen1ViewModel: ViewModel, ObservableObject {
         await deliveryActor.removeAllOrders()
     }
 
+    func cancelOrder(at orderID: UUID) async {
+        cancelledTasks.insert(orderID)
+        await updateState(orderId: orderID, state: .cancelled)
+    }
+
     @MainActor
     func addOrder() async {
         totalOrderAdded += 1
@@ -68,26 +75,37 @@ final class Screen1ViewModel: ViewModel, ObservableObject {
             return
         }
         await chefActor.setProcessing(isOn: true)
-        let order = await chefActor.removeFirstFromQueue().nextState()
+        var order = await chefActor.removeFirstFromQueue()
 
+        if !cancelledTasks.contains(order.id) {
+            await switchState(for: &order)
+            await chefActor.cookOrder(order: order)
+            await switchState(for: &order)
 
-        await updateState(orderId: order.id, state: order.state)
-
-        let cookedOrder = await chefActor.cookOrder(order: order)
-        await updateState(orderId: order.id, state: cookedOrder.state)
-        await chefActor.setProcessing(isOn: false)
-
-        Task {
-            await deliveryActor.appendToQueue(order: cookedOrder)
-            await startDeliveringProcess()
+            Task {
+                await deliveryActor.appendToQueue(order: order)
+                await startDeliveringProcess()
+            }
         }
 
+        await chefActor.setProcessing(isOn: false)
         if await chefActor.orderQueue.isEmpty {
             return
         }
 
         await startCookingProcess()
+    }
 
+    private func switchState(for order: inout Order) async {
+        if cancelledTasks.contains(order.id) {
+            order.state = .cancelled
+        } else {
+            let state = order.state
+            let newState = OrderState(rawValue: state.rawValue + 1) ?? .inQueue
+            order.state = newState
+        }
+
+        await updateState(orderId: order.id, state: order.state)
     }
 
     private func startDeliveringProcess() async {
@@ -99,24 +117,25 @@ final class Screen1ViewModel: ViewModel, ObservableObject {
         }
 
         await deliveryActor.setProcessing(isOn: true)
-        let order = await deliveryActor.removeFirstFromQueue().nextState()
+        var order = await deliveryActor.removeFirstFromQueue()
 
-        await updateState(orderId: order.id, state: order.state)
+        if !cancelledTasks.contains(order.id) {
+            await switchState(for: &order)
+            await deliveryActor.deliveryOrder(order: order)
+            await switchState(for: &order)
 
-        let deliveredOrder = await deliveryActor.deliveryOrder(order: order)
-        await updateState(orderId: deliveredOrder.id, state: deliveredOrder.state)
+            await MainActor.run {
+                totalOrderDone += 1
+            }
+        }
 
         await deliveryActor.setProcessing(isOn: false)
         processingTasks.removeValue(forKey: order.id)
-        await MainActor.run {
-            totalOrderDone += 1
-        }
 
         if await deliveryActor.orderQueue.isEmpty {
             return
         }
         await startDeliveringProcess()
-
     }
 
     private func updateState(orderId: UUID, state: OrderState) async {

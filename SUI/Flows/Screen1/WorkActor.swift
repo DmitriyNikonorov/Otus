@@ -29,16 +29,13 @@ actor ChefActor {
         return true
     }
 
-
-
     func setProcessing(isOn: Bool) async {
         isProcess = isOn
     }
 
-    func cookOrder(order: Order) async -> Order {
+    func cookOrder(order: Order) async {
         let cookingTime = Int.random(in: 3...7)
         try? await Task.sleep(nanoseconds: UInt64(cookingTime * 1_000_000_000))
-        return order.nextState()
     }
 
     func removeAllOrders() async {
@@ -70,10 +67,9 @@ actor DeliveryActor {
         isProcess = isOn
     }
 
-    func deliveryOrder(order: Order) async -> Order {
+    func deliveryOrder(order: Order) async {
         let deliveryTime = Int.random(in: 2...5)
         try? await Task.sleep(nanoseconds: UInt64(deliveryTime * 1_000_000_000))
-        return order.nextState()
     }
 
     func removeAllOrders() async {

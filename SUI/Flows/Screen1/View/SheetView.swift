@@ -11,6 +11,7 @@ import Foundation
 struct SheetView: View {
     @StateObject var viewModel: Screen1ViewModel
 
+
     var body: some View {
         VStack {
             Spacer()
@@ -19,7 +20,11 @@ struct SheetView: View {
             List {
                 Section {
                     ForEach($viewModel.ordersList) { $order in
-                        OrderView(order: $order)
+                        OrderView(order: $order) {
+                            Task {
+                                await viewModel.cancelOrder(at: order.id)
+                            }
+                        }
                     }
                 }
             }
@@ -42,6 +47,7 @@ struct SheetView: View {
 
 struct OrderView: View {
     @Binding var order: Order
+    var onCancel: () -> Void
 
     var body: some View {
         HStack() {
@@ -53,12 +59,18 @@ struct OrderView: View {
                 .padding(8)
                 .background(statusBackground)
                 .cornerRadius(8)
+            Spacer()
+            if order.state != .delivered &&
+                order.state != .inDelivery &&
+                order.state != .cancelled {
+                Button("Отменить", action: onCancel)
+            }
         }
     }
 
     private var stateColor: Color {
         switch order.state {
-        case .inQueue, .delivered:
+        case .inQueue, .delivered, .cancelled:
                 .white
 
         case .cooking:
@@ -86,9 +98,11 @@ struct OrderView: View {
         case .inDelivery:
                 .blue
 
-
         case .delivered:
                 .green
+
+        case .cancelled:
+                .red
         }
     }
 }

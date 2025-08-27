@@ -8,10 +8,12 @@
 import Foundation
 
 enum OrderState: Int {
-    case inQueue, cooking, cooked, inDelivery, delivered
+    case cancelled, inQueue, cooking, cooked, inDelivery, delivered
 
     var description: String {
         switch self {
+        case .cancelled:
+            return "Отменено"
 
         case .inQueue:
             return "В очереди"
