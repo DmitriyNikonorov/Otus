@@ -11,14 +11,18 @@ import Foundation
 struct Screen1View: View {
     @EnvironmentObject var tabBarState: TabBarState
     @ObservedObject var viewModel: Screen1ViewModel
-    @State private var isShowSeet = false
+    @State private var isShowSheet = false
+    @State private var isShowMlSheet = false
 
     var body: some View {
         ZStack {
             VStack {
-                Button("Show Actors sheet") { isShowSeet = true }
+                Button("Show Actors sheet") { isShowSheet = true }
+                    .padding(24.0)
+                Button("Show ML sheet") { isShowMlSheet = true }
             }
         }
-        .sheet(isPresented: $isShowSeet) { SheetView(viewModel: viewModel) }
+        .sheet(isPresented: $isShowSheet) { SheetView(viewModel: viewModel) }
+        .sheet(isPresented: $isShowMlSheet) { MLView() }
     }
 }
