@@ -17,9 +17,22 @@
 		F320921EA8D030CA07C65BFF /* Pods-SUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SUI.debug.xcconfig"; path = "Target Support Files/Pods-SUI/Pods-SUI.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5A23B5FC2E8BB1F500990B0C /* Exceptions for "SUI" folder in "SUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5AE1EF602DEE1F050063A21C /* SUI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5AE1EF632DEE1F050063A21C /* SUI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5A23B5FC2E8BB1F500990B0C /* Exceptions for "SUI" folder in "SUI" target */,
+			);
 			path = SUI;
 			sourceTree = "<group>";
 		};
@@ -308,7 +321,9 @@
 				DEVELOPMENT_TEAM = WKZY6R2Q32;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(MARKETING_VERSION)";
+				INFOPLIST_FILE = SUI/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = 1.0;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Добавление в локальную сеть";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -340,7 +355,9 @@
 				DEVELOPMENT_TEAM = WKZY6R2Q32;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(MARKETING_VERSION)";
+				INFOPLIST_FILE = SUI/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = 1.0;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Добавление в локальную сеть";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
