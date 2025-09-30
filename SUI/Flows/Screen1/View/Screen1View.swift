@@ -13,6 +13,8 @@ struct Screen1View: View {
     @ObservedObject var viewModel: Screen1ViewModel
     @State private var isShowSheet = false
     @State private var isShowMlSheet = false
+    @State private var isShowARSheet = false
+    @State private var isShowFaceTransformationSheet = false
 
     var body: some View {
         ZStack {
@@ -20,9 +22,16 @@ struct Screen1View: View {
                 Button("Show Actors sheet") { isShowSheet = true }
                     .padding(24.0)
                 Button("Show ML sheet") { isShowMlSheet = true }
+                    .padding(24.0)
+                Button("Face detection sheet") { isShowARSheet = true }
+                    .padding(24.0)
+                Button("Face transformation sheet") { isShowFaceTransformationSheet = true }
+                    .padding(24.0)
             }
         }
         .sheet(isPresented: $isShowSheet) { SheetView(viewModel: viewModel) }
         .sheet(isPresented: $isShowMlSheet) { MLView() }
+        .sheet(isPresented: $isShowARSheet) { ARCameraView() }
+        .sheet(isPresented: $isShowFaceTransformationSheet) { FaceTransformationView() }
     }
 }
