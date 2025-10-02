@@ -8,6 +8,30 @@
 import MultipeerConnectivity
 import SwiftUI
 
+struct ContentView: View {
+    @State private var showAlert = false
+
+    var body: some View {
+        VStack {
+            Button("Показать алерт") {
+                showAlert = true
+            }
+            .padding()
+        }
+        .alert("Внимание!", isPresented: $showAlert) {
+            Button("Отмена", role: .cancel) {
+                print("Нажата отмена")
+            }
+
+            Button("OK", role: .none) {
+                print("Нажата OK")
+            }
+        } message: {
+            Text("Вы уверены, что хотите продолжить?")
+        }
+    }
+}
+
 struct MPCView: View {
     @StateObject private var mpcManager = MPCManager()
     @State private var messageText = ""
@@ -27,6 +51,22 @@ struct MPCView: View {
         .onDisappear {
             mpcManager.disconnect()
         }
+        .alert("Внимание!", isPresented: $mpcManager.isShowAlert) {
+            Button("Отмена", role: .cancel) {
+                if mpcManager.outerInvitationHandler != nil {
+                    mpcManager.outerInvitationHandler!(false, mpcManager.getSession)
+                }
+                mpcManager.isShowAlert = false
+            }
+
+            Button("Принять", role: .none) {
+                if mpcManager.outerInvitationHandler != nil {
+                    mpcManager.outerInvitationHandler!(true, mpcManager.getSession)
+                }
+            }
+        } message: {
+            Text("Получено приглашение от \(mpcManager.invitationDeviceName ?? "")")
+        }
     }
 
     private var headerView: some View {
@@ -42,7 +82,7 @@ struct MPCView: View {
                         .foregroundColor(.secondary)
 
                     HStack {
-                        StatusIndicator(isActive: mpcManager.isAdvertising, text: "Реклама")
+                        StatusIndicator(isActive: mpcManager.isAdvertising, text: "Видимость")
                         StatusIndicator(isActive: mpcManager.isBrowsing, text: "Поиск")
                         StatusIndicator(isActive: mpcManager.isConnected, text: "Подключено")
                     }
@@ -97,7 +137,7 @@ struct MPCView: View {
                 }
                 .padding()
             }
-            .onChange(of: mpcManager.messages.count) { _ in
+            .onChange(of: mpcManager.messages.count) { _, _ in
                 if let last = mpcManager.messages.last {
                     proxy.scrollTo(last.id, anchor: .bottom)
                 }
@@ -139,131 +179,6 @@ struct StatusIndicator: View {
     }
 }
 
-//struct MPCView: View {
-//    @StateObject private var mpcManager = MPCManager()
-//    @State private var messageText = ""
-//
-//    var body: some View {
-//        VStack(spacing: 0) {
-//            // Header
-//            headerView
-//
-//            // Chat messages
-//            chatView
-//
-//            // Input area
-//            inputView
-//        }
-//        .sheet(isPresented: $mpcManager.showBrowser) {
-//            BrowserView(mpcManager: mpcManager)
-//        }
-//        .onAppear {
-//            mpcManager.startAdvertising()
-//        }
-//        .onDisappear {
-//            mpcManager.disconnect()
-//        }
-//    }
-//
-//    // MARK: - Subviews
-//
-//    private var headerView: some View {
-//        VStack(spacing: 8) {
-//            HStack {
-//                VStack(alignment: .leading) {
-//                    Text("Multipeer Chat")
-//                        .font(.title2)
-//                        .fontWeight(.bold)
-//
-//                    Text(statusText)
-//                        .font(.caption)
-//                        .foregroundColor(statusColor)
-//                }
-//
-//                Spacer()
-//
-//                Button(action: {
-//                    mpcManager.showBrowserView()
-//                }) {
-//                    Image(systemName: "plus.circle.fill")
-//                        .font(.title2)
-//                        .foregroundColor(.blue)
-//                }
-//                .disabled(mpcManager.isConnected)
-//            }
-//
-//            if mpcManager.isConnected {
-//                HStack {
-//                    Image(systemName: "person.2.fill")
-//                    Text("Подключено: \(mpcManager.connectedPeers.count) устройств")
-//                    Spacer()
-//                }
-//                .font(.caption)
-//                .foregroundColor(.green)
-//            }
-//        }
-//        .padding()
-//        .background(Color(.systemGray6))
-//    }
-//
-//    private var chatView: some View {
-//        ScrollViewReader { proxy in
-//            ScrollView {
-//                LazyVStack(alignment: .leading, spacing: 8) {
-//                    ForEach(mpcManager.messages) { message in
-//                        MessageBubble(message: message)
-//                    }
-//                }
-//                .padding()
-//            }
-//            .onChange(of: mpcManager.messages.count) { _ in
-//                scrollToBottom(proxy: proxy)
-//            }
-//        }
-//        .background(Color(.systemBackground))
-//    }
-//
-//    private var inputView: some View {
-//        HStack(spacing: 12) {
-//            TextField("Введите сообщение...", text: $messageText)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .disabled(!mpcManager.isConnected)
-//
-//            Button("Отправить") {
-//                mpcManager.sendMessage(messageText)
-//                messageText = ""
-//            }
-//            .buttonStyle(.borderedProminent)
-//            .disabled(messageText.isEmpty || !mpcManager.isConnected)
-//        }
-//        .padding()
-//        .background(Color(.systemGray6))
-//    }
-//
-//    // MARK: - Computed Properties
-//
-//    private var statusText: String {
-//        if mpcManager.isConnected {
-//            return "Подключено к чату"
-//        } else {
-//            return "Не подключено - нажмите + для поиска"
-//        }
-//    }
-//
-//    private var statusColor: Color {
-//        mpcManager.isConnected ? .green : .orange
-//    }
-//
-//    // MARK: - Methods
-//
-//    private func scrollToBottom(proxy: ScrollViewProxy) {
-//        guard let lastMessage = mpcManager.messages.last else { return }
-//        withAnimation {
-//            proxy.scrollTo(lastMessage.id, anchor: .bottom)
-//        }
-//    }
-//}
-//
 // MARK: - Message Bubble View
 struct MessageBubble: View {
     let message: ChatMessage
@@ -293,14 +208,3 @@ struct MessageBubble: View {
         }
     }
 }
-//
-//// MARK: - Browser View
-//struct BrowserView: UIViewControllerRepresentable {
-//    let mpcManager: MPCManager
-//
-//    func makeUIViewController(context: Context) -> UIViewController {
-//        return mpcManager.getBrowserViewController()
-//    }
-//
-//    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-//}
